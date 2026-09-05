@@ -67,14 +67,43 @@ public class SinglyLinkedList<E> {
 
     // Write your codes below
     public String toString(){
-     
+        StringBuilder sb = new StringBuilder();
+        Node<E> current = head;
+        while (current != null) {
+            sb.append(current.getElement());
+                current = current.getNext();            
+        } return sb.toString();
     }
-
     public E removeLast(){
-      
+      if (size <= 1) {
+        return removeFirst();
+        }
+
+        Node<E> current = head;
+        while (current.getNext() != tail) {
+        current = current.getNext();
+        }
+
+        E answer = tail.getElement();
+        tail = current;
+        tail.setNext(null);
+        size--;
+        return answer;
     }
 
     public void reverse(){       
-                 
+        Node<E> previous = null;
+        Node<E> current = head;
+
+        tail = head;
+
+        while (current != null) {
+            Node<E> next = current.getNext();
+            current.setNext(previous);
+            previous = current;
+            current = next;
+        }
+
+        head = previous;
     }
 }
